@@ -81,16 +81,16 @@ func TestAddWithTableDrivenTesting(t *testing.T) {
 }
 
 func TestGreetingAPI(t *testing.T) {
-	req, err := http.NewRequest(http.MethodGet, "/", http.NoBody)
-	if err != nil {
-		t.Fatal(err)
-	}
-	res := httptest.NewRecorder()
+	// Initialize a new dummy http.Request.
+	req, _ := http.NewRequest(http.MethodGet, "/", http.NoBody)
+	rec := httptest.NewRecorder()
 
-	GreetingAPI(res, req)
+	// Call the GreetingAPI handler function, passing in the
+	// httptest.ResponseRecorder and http.Request.
+	GreetingAPI(rec, req)
 
 	expected := "Hello Gopher"
-	received := res.Body.String()
+	received := rec.Body.String()
 
 	// We can also use `assert.Equal(t, expected, actual)`
 	if expected != received {
